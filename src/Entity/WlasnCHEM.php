@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\WlasnCHEMRepository;
+use App\Service\ArrayReduce;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,6 +15,30 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class WlasnCHEM
 {
+    /**
+     * @var array|string[]
+     */
+    public static array $order = [
+        'numerWytopu',
+        'koncowaProba',
+        'Date',
+        'Time',
+        'Gatunek',
+        'valueC',
+        'valueSi',
+        'valueMn',
+        'valueP',
+        'valS',
+        'valueCr',
+        'valueNi',
+        'valueMo',
+        'valueCu',
+        'valueAl',
+        'valueV',
+        'valueCe',
+        'valueSn',
+        'valueTi'
+    ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -111,6 +140,16 @@ class WlasnCHEM
      * @ORM\Column(type="float", nullable=true)
      */
     private $valueTi;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Cert::class, mappedBy="WlasnCHEM")
+     */
+    private $certs;
+
+    public function __construct()
+    {
+        $this->certs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -343,5 +382,37 @@ class WlasnCHEM
         $this->valueTi = $valueTi;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Cert>
+     */
+    public function getCerts(): Collection
+    {
+        return $this->certs;
+    }
+
+    public function addCert(Cert $cert): self
+    {
+        if (!$this->certs->contains($cert)) {
+            $this->certs[] = $cert;
+            $cert->addWlasnCHEM($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCert(Cert $cert): self
+    {
+        if ($this->certs->removeElement($cert)) {
+            $cert->removeWlasnCHEM($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (new ArrayReduce())->toString(WlasnCHEM::$order,$this,'CHEM');
     }
 }

@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\WlasnMECHRepository;
+use App\Service\ArrayReduce;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,6 +15,30 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class WlasnMECH
 {
+
+    public static array $order = [
+        'WytNew',
+        'valueReRp',
+        'valueRm',
+        'valueA5',
+        'valueZ',
+        'valueTmp',
+        'valueKV1',
+        'valueKV2',
+        'valueKV3',
+        'valueKCU160',
+        'valueKCU260',
+        'valueKCU360',
+        'valueKCV',
+        'valueKCV2',
+        'valueKCV3',
+        'valueKCU20st1',
+        'valueKCU20st2',
+        'valueKCU20st3',
+        'valueTwardosc',
+        'dataOtrzymania',
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -116,6 +145,16 @@ class WlasnMECH
      * @ORM\Column(type="date", nullable=true)
      */
     private $dataOtrzymania;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Cert::class, mappedBy="WlasnMECH")
+     */
+    private $certs;
+
+    public function __construct()
+    {
+        $this->certs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -360,5 +399,36 @@ class WlasnMECH
         $this->dataOtrzymania = $dataOtrzymania;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Cert>
+     */
+    public function getCerts(): Collection
+    {
+        return $this->certs;
+    }
+
+    public function addCert(Cert $cert): self
+    {
+        if (!$this->certs->contains($cert)) {
+            $this->certs[] = $cert;
+            $cert->addWlasnMECH($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCert(Cert $cert): self
+    {
+        if ($this->certs->removeElement($cert)) {
+            $cert->removeWlasnMECH($this);
+        }
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (new ArrayReduce())->toString(WlasnMECH::$order,$this,'MECH');
     }
 }
