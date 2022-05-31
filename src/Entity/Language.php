@@ -50,9 +50,15 @@ class Language
      */
     private $customers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Norm::class, mappedBy="language")
+     */
+    private $norms;
+
     public function __construct()
     {
         $this->customers = new ArrayCollection();
+        $this->norms = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,5 +159,35 @@ class Language
     public function __toString()
     {
         return (new ArrayReduce())->toString(['name','international','alfa2','alfa3'],$this);
+    }
+
+    /**
+     * @return Collection<int, Norm>
+     */
+    public function getNorms(): Collection
+    {
+        return $this->norms;
+    }
+
+    public function addNorm(Norm $norm): self
+    {
+        if (!$this->norms->contains($norm)) {
+            $this->norms[] = $norm;
+            $norm->setLanguage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNorm(Norm $norm): self
+    {
+        if ($this->norms->removeElement($norm)) {
+            // set the owning side to null (unless already changed)
+            if ($norm->getLanguage() === $this) {
+                $norm->setLanguage(null);
+            }
+        }
+
+        return $this;
     }
 }
