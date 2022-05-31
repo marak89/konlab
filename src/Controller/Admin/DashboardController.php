@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Customer;
+use App\Entity\Language;
 use App\Entity\WlasnCHEM;
 use App\Entity\WlasnMECH;
 use App\Entity\Cert;
@@ -35,5 +36,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('WlasnMECH', 'fas fa-wrench', WlasnMECH::class);
         yield MenuItem::linkToCrud('Certyfikaty','fas fa-file-alt',Cert::class);
         yield MenuItem::linkToCrud('Klienci','fas fa-people-arrows',Customer::class);
+        yield MenuItem::linkToCrud('Language','fas fa-language',Language::class);
     }
 }

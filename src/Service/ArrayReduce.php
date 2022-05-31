@@ -18,25 +18,25 @@ class ArrayReduce
                 case 'integer':
                 case 'float':
                 case 'double':
-                    return $carry . '| ' . $propertyValue;
+                    return $carry . $propertyValue . '| ';
                 case 'NULL':
                     return $carry.'|';
                 case 'object':
                     if($item == 'Time'){
-                        return $carry . '| ' . $propertyValue->format('H:i:s');
+                        return $carry  . $propertyValue->format('H:i:s'). '| ';
                     } else {
-                        return $carry . '| ' . $propertyValue->format('d-m-Y');
+                        return $carry  . $propertyValue->format('d-m-Y'). '| ';
                     }
                 default:
-                    return $carry . '| ' . gettype($propertyValue);
+                    return $carry  . gettype($propertyValue). '| ';
             }
         }
         return $carry;
     }
 
-    public function toString(array $arrayToReduce,object $object,string $initial): string
+    public function toString(array $arrayToReduce,object $object,?string $initial = null): string
     {
         $this->object = $object;
-        return array_reduce($arrayToReduce,array($this,'valueReduce'),$initial);
+        return array_reduce($arrayToReduce,array($this,'valueReduce'),$initial ? $initial.'| ' : null);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LanguageRepository;
+use App\Service\ArrayReduce;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -147,5 +148,10 @@ class Language
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (new ArrayReduce())->toString(['name','international','alfa2','alfa3'],$this);
     }
 }

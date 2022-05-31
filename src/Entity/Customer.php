@@ -125,7 +125,7 @@ class Customer
 
     public function __toString(): string
     {
-        return (new ArrayReduce())->toString(['short','name','address'], $this, 'KLIENT');
+        return (new ArrayReduce())->toString(['short','name','address'], $this);
     }
 
     public function getLanguage(): ?Language
@@ -136,7 +136,6 @@ class Customer
     public function setLanguage(?Language $language): self
     {
         $this->language = $language;
-
         return $this;
     }
 }
