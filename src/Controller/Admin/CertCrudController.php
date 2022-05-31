@@ -17,10 +17,10 @@ class CertCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-
-        yield    BooleanField::new('readyToPrint');
-        yield    AssociationField::new('WlasnCHEM');
-        yield    AssociationField::new('WlasnMECH');
+        yield BooleanField::new('readyToPrint');
+        yield AssociationField::new('WlasnCHEM');
+        yield AssociationField::new('WlasnMECH');
+        yield AssociationField::new('Customer');
     }
 
 }

@@ -47,6 +47,11 @@ class Cert
      */
     private $readyToPrint;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="certs")
+     */
+    private $Customer;
+
     public function __construct()
     {
         $this->WlasnCHEM = new ArrayCollection();
@@ -114,6 +119,18 @@ class Cert
     public function setReadyToPrint(bool $readyToPrint): self
     {
         $this->readyToPrint = $readyToPrint;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->Customer;
+    }
+
+    public function setCustomer(?Customer $Customer): self
+    {
+        $this->Customer = $Customer;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Customer;
 use App\Entity\WlasnCHEM;
 use App\Entity\WlasnMECH;
 use App\Entity\Cert;
@@ -32,6 +33,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('WlasnCHEM', 'fas fa-atom', WlasnCHEM::class);
         yield MenuItem::linkToCrud('WlasnMECH', 'fas fa-wrench', WlasnMECH::class);
-        yield MenuItem::linkToCrud('Cert','fas fa-file-alt',Cert::class);
+        yield MenuItem::linkToCrud('Certyfikaty','fas fa-file-alt',Cert::class);
+        yield MenuItem::linkToCrud('Klienci','fas fa-people-arrows',Customer::class);
     }
 }
