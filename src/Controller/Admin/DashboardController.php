@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\CheckNorm;
 use App\Entity\Customer;
 use App\Entity\Gatunek;
 use App\Entity\IndNazRys;
@@ -42,10 +43,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Certyfikaty','fas fa-certificate',Cert::class);
         yield MenuItem::linkToCrud('Klienci','fas fa-people-arrows',Customer::class);
         yield MenuItem::linkToCrud('Language','fas fa-language',Language::class);
-        yield MenuItem::linkToCrud('Normy','fas fa-file-alt',Norm::class);
+        yield MenuItem::linkToCrud('Normy dokumentu','fas fa-file-alt',Norm::class);
         yield MenuItem::linkToCrud('Zamówienia', 'fas fa-folder', Order::class);
         yield MenuItem::linkToCrud('indeks rysunek','fas fas fa-ruler-combined',IndNazRys::class);
         yield MenuItem::linkToCrud('Gatunek','fas fa-clipboard-check',Gatunek::class);
         yield MenuItem::linkToCrud('Obróbka cieplna','fas fa-burn',ObrCieplna::class);
+        yield MenuItem::linkToCrud('Normy weryfikacji','fas fa-checklist',CheckNorm::class);
     }
 }
