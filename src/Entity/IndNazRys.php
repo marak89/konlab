@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\IndNazRysRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -191,6 +193,16 @@ class IndNazRys
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $odbiorJakosciowy;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Cert::class, mappedBy="indNazRys")
+     */
+    private $certs;
+
+    public function __construct()
+    {
+        $this->certs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -613,6 +625,33 @@ class IndNazRys
     public function setOdbiorJakosciowy(?string $odbiorJakosciowy): self
     {
         $this->odbiorJakosciowy = $odbiorJakosciowy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cert>
+     */
+    public function getCerts(): Collection
+    {
+        return $this->certs;
+    }
+
+    public function addCert(Cert $cert): self
+    {
+        if (!$this->certs->contains($cert)) {
+            $this->certs[] = $cert;
+            $cert->addIndNazRy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCert(Cert $cert): self
+    {
+        if ($this->certs->removeElement($cert)) {
+            $cert->removeIndNazRy($this);
+        }
 
         return $this;
     }

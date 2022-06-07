@@ -48,6 +48,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('indeks rysunek','fas fas fa-ruler-combined',IndNazRys::class);
         yield MenuItem::linkToCrud('Gatunek','fas fa-clipboard-check',Gatunek::class);
         yield MenuItem::linkToCrud('Obróbka cieplna','fas fa-burn',ObrCieplna::class);
-        yield MenuItem::linkToCrud('Normy weryfikacji','fas fa-checklist',CheckNorm::class);
+        yield MenuItem::linkToCrud('Normy weryfikacji','fas fa-clipboard-list',CheckNorm::class);
     }
 }
