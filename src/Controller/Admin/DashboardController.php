@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Customer;
+use App\Entity\Gatunek;
 use App\Entity\IndNazRys;
 use App\Entity\Language;
 use App\Entity\Norm;
@@ -43,5 +44,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Normy','fas fa-file-alt',Norm::class);
         yield MenuItem::linkToCrud('Zamówienia', 'fas fa-folder', Order::class);
         yield MenuItem::linkToCrud('indeks rysunek','fas fas fa-ruler-combined',IndNazRys::class);
+        yield MenuItem::linkToCrud('Gatunek','fas fa-clipboard-check',Gatunek::class);
     }
 }
