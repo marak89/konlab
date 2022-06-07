@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Customer;
 use App\Entity\Language;
 use App\Entity\Norm;
+use App\Entity\Order;
 use App\Entity\WlasnCHEM;
 use App\Entity\WlasnMECH;
 use App\Entity\Cert;
@@ -39,5 +40,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Klienci','fas fa-people-arrows',Customer::class);
         yield MenuItem::linkToCrud('Language','fas fa-language',Language::class);
         yield MenuItem::linkToCrud('Normy','fas fa-file-alt',Norm::class);
+        yield MenuItem::linkToCrud('Zamówienia', 'fas fa-folder', Order::class);
     }
 }
