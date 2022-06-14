@@ -21,6 +21,7 @@ class CertCrudController extends AbstractCrudController
         yield AssociationField::new('WlasnCHEM');
         yield AssociationField::new('WlasnMECH');
         yield AssociationField::new('Customer');
+
     }
 
 }
